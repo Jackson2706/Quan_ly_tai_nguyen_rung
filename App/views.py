@@ -10,9 +10,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from student_management_app.EmailBackEnd import EmailBackEnd
-from student_management_app.models import CustomUser
-from student_management_system import settings
+from App.EmailBackEnd import EmailBackEnd
+from App.models import CustomUser
+from System import settings
 
 
 def showDemoPage(request):

@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 
 class CustomUser(AbstractUser):
-    user_type_data = ((1, "HOD"), (2, "Staff"), (3, "Student"))
+    user_type_data = ((1, "AdminHOD"), (2, "CanBoNghiepVu"))
     user_type = models.CharField(
         default=1, choices=user_type_data, max_length=10
     )
@@ -40,8 +40,7 @@ class CanBoNghiepVu(models.Model):
     objects = models.Manager()
 
 
-################################################################################
-########## 2. Quan ly cay giong ################################################
+########################################################################################## 2. Quan ly cay giong ################################################
 
 
 class LoaiCayGiong(models.Model):
@@ -51,7 +50,7 @@ class LoaiCayGiong(models.Model):
     objects = models.Manager()
 
 
-class CoSoSanXuat(models.Model):
+class CoSoSanXuatCayGiong(models.Model):
     id = models.AutoField(primary_key=True)
     ten_co_so = models.TextField()
     dia_diem = models.TextField()
@@ -62,7 +61,9 @@ class CoSoSanXuat(models.Model):
 class CayGiong(models.Model):
     id = models.AutoField(primary_key=True)
     loai_cay_giong = models.ForeignKey(LoaiCayGiong, on_delete=models.CASCADE)
-    co_so_san_xuat = models.ForeignKey(CoSoSanXuat, on_delete=models.CASCADE)
+    co_so_san_xuat = models.ForeignKey(
+        CoSoSanXuatCayGiong, on_delete=models.CASCADE
+    )
     so_luong = models.IntegerField()
     Thoi_gian_cap_nhat = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
@@ -140,7 +141,9 @@ def create_user_profile(sender, instance, created, **kwargs):
         if instance.user_type == 1:
             AdminHOD.objects.create(admin=instance)
         if instance.user_type == 2:
-            Staffs.objects.create(admin=instance, address="")
+            CanBoNghiepVu.objects.create(
+                admin=instance, chuc_vu="", don_vi=Donvi.objects.get(id=1)
+            )
 
 
 @receiver(post_save, sender=CustomUser)
@@ -148,4 +151,4 @@ def save_user_profile(sender, instance, **kwargs):
     if instance.user_type == 1:
         instance.adminhod.save()
     if instance.user_type == 2:
-        instance.staffs.save()
+        instance.canbonghiepvu.save()

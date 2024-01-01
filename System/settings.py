@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "student_management_app",
+    "App",
 ]
 
 MIDDLEWARE = [
@@ -57,15 +57,15 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "student_management_app.LoginCheckMiddleWare.LoginCheckMiddleWare",
+    "App.LoginCheckMiddleWare.LoginCheckMiddleWare",
 ]
 
-ROOT_URLCONF = "student_management_system.urls"
+ROOT_URLCONF = "System.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["student_management_app/templates"],
+        "DIRS": ["App/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "student_management_system.wsgi.application"
+WSGI_APPLICATION = "System.wsgi.application"
 
 
 # Database
@@ -139,8 +139,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
-AUTH_USER_MODEL = "student_management_app.CustomUser"
-AUTHENTICATION_BACKENDS = ["student_management_app.EmailBackEnd.EmailBackEnd"]
+AUTH_USER_MODEL = "App.CustomUser"
+AUTHENTICATION_BACKENDS = ["App.EmailBackEnd.EmailBackEnd"]
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_mails")

@@ -8,356 +8,182 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from student_management_app.models import CustomUser
+from App.models import (
+    CanBoNghiepVu,
+    CoSoSanXuatCayGiong,
+    CustomUser,
+    Donvi,
+    LoaiCayGiong,
+    LoaiDongVatQuy,
+)
 
 
 def admin_home(request):
-    pass
+    CanBoNghiepVu_count = CanBoNghiepVu.objects.all().count()
+    LoaiCayGiong_count = LoaiCayGiong.objects.all().count()
+    LoaiDongVatQuyHiem_count = LoaiDongVatQuy.objects.all().count()
+    CoSoSanXuatCayGiong_count = CoSoSanXuatCayGiong.objects.all().count()
+
+    return render(
+        request,
+        "hod_template/home_content.html",
+        {
+            "CanBoNghiepVu_count": CanBoNghiepVu_count,
+            "LoaiCayGiong_count": LoaiCayGiong_count,
+            "LoaiDongVatQuyHiem_count": LoaiDongVatQuyHiem_count,
+            "CoSoSanXuatCayGiong_count": CoSoSanXuatCayGiong_count,
+        },
+    )
 
 
-#     student_count1=Students.objects.all().count()
-#     staff_count=Staffs.objects.all().count()
-#     subject_count=Subjects.objects.all().count()
-#     course_count=Class.objects.all().count()
-
-#     course_all=Class.objects.all()
-#     course_name_list=[]
-#     subject_count_list=[]
-#     student_count_list_in_course=[]
-#     for course in course_all:
-#         subjects=Subjects.objects.filter(course_id=course.id).count()
-#         students=Students.objects.filter(course_id=course.id).count()
-#         course_name_list.append(course.course_name)
-#         subject_count_list.append(subjects)
-#         student_count_list_in_course.append(students)
-
-#     subjects_all=Subjects.objects.all()
-#     subject_list=[]
-#     student_count_list_in_subject=[]
-#     for subject in subjects_all:
-#         course=Class.objects.get(id=subject.course_id.id)
-#         student_count=Students.objects.filter(course_id=course.id).count()
-#         subject_list.append(subject.subject_name)
-#         student_count_list_in_subject.append(student_count)
-
-#     staffs=Staffs.objects.all()
-#     attendance_present_list_staff=[]
-#     attendance_absent_list_staff=[]
-#     staff_name_list=[]
-#     for staff in staffs:
-#         subject_ids=Subjects.objects.filter(staff_id=staff.admin.id)
-#         attendance=Attendance.objects.filter(subject_id__in=subject_ids).count()
-#         leaves=LeaveReportStaff.objects.filter(staff_id=staff.id,leave_status=1).count()
-#         attendance_present_list_staff.append(attendance)
-#         attendance_absent_list_staff.append(leaves)
-#         staff_name_list.append(staff.admin.username)
-
-#     students_all=Students.objects.all()
-#     attendance_present_list_student=[]
-#     attendance_absent_list_student=[]
-#     student_name_list=[]
-#     for student in students_all:
-#         attendance=AttendanceReport.objects.filter(student_id=student.id,status=True).count()
-#         absent=AttendanceReport.objects.filter(student_id=student.id,status=False).count()
-#         leaves=LeaveReportStudent.objects.filter(student_id=student.id,leave_status=1).count()
-#         attendance_present_list_student.append(attendance)
-#         attendance_absent_list_student.append(leaves+absent)
-#         student_name_list.append(student.admin.username)
+def add_staff(request):
+    don_vi_all = Donvi.objects.all()
+    return render(
+        request,
+        "hod_template/add_staff_template.html",
+        {"don_vi_all": don_vi_all},
+    )
 
 
-#     return render(request,"hod_template/home_content.html",{"student_count":student_count1,"staff_count":staff_count,"subject_count":subject_count,"course_count":course_count,"course_name_list":course_name_list,"subject_count_list":subject_count_list,"student_count_list_in_course":student_count_list_in_course,"student_count_list_in_subject":student_count_list_in_subject,"subject_list":subject_list,"staff_name_list":staff_name_list,"attendance_present_list_staff":attendance_present_list_staff,"attendance_absent_list_staff":attendance_absent_list_staff,"student_name_list":student_name_list,"attendance_present_list_student":attendance_present_list_student,"attendance_absent_list_student":attendance_absent_list_student})
-
-# def add_staff(request):
-#     return render(request,"hod_template/add_staff_template.html")
-
-# def add_staff_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("Method Not Allowed")
-#     else:
-#         first_name=request.POST.get("first_name")
-#         last_name=request.POST.get("last_name")
-#         username=request.POST.get("username")
-#         email=request.POST.get("email")
-#         password=request.POST.get("password")
-#         address=request.POST.get("address")
-#         try:
-#             user=CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=2)
-#             user.staffs.address=address
-#             user.save()
-#             messages.success(request,"Successfully Added Staff")
-#             return HttpResponseRedirect(reverse("add_staff"))
-#         except:
-#             messages.error(request,"Failed to Add Staff")
-#             return HttpResponseRedirect(reverse("add_staff"))
-
-# def add_course(request):
-#     staff_list = Staffs.objects.all()
-#     session_list = SessionYearModel.object.all()
-#     school_year_list = SchoolYearModel.object.all()
-#     return render(request,"hod_template/add_class_template.html",{"staffs": staff_list, "sessions": session_list, "school_years":school_year_list })
-
-# def add_course_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("Method Not Allowed")
-#     else:
-#         course=request.POST.get("class_name")
-#         staff_id = Staffs(id=request.POST.get("staff"))
-#         session_id = SessionYearModel(id=request.POST.get("session"))
-#         school_year_id = SchoolYearModel.object.get(id=request.POST.get("school_year"))
-#         try:
-#             course_model=Class(course_name=course, staff_id=staff_id, session_year_id= session_id, school_year_id  = school_year_id)
-#             course_model.save()
-#             messages.success(request,"Successfully Added Class")
-#             return HttpResponseRedirect(reverse("add_course"))
-#         except Exception as e:
-#             print(e)
-#             messages.error(request,"Failed To Add Class")
-#             return HttpResponseRedirect(reverse("add_course"))
-
-# def add_student(request):
-#     classes = Class.objects.all()
-#     return render(request,"hod_template/add_student_template.html",{"classes":classes})
-
-# def add_student_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("Method Not Allowed")
-#     else:
-#         first_name = request.POST.get("first_name")
-#         last_name = request.POST.get("last_name")
-#         username = request.POST.get("username")
-#         sex = request.POST.get("gender")
-#         class_id = request.POST.get("class")
-#         class_ = Class.objects.get(id=class_id)
-#         email = request.POST.get("email")
-#         password = request.POST.get("password")
-#         address = request.POST.get("address")
-#         try:
-#             user = CustomUser.objects.create_user(username=username, password=password, email=email,
-#                                                   last_name=last_name, first_name=first_name, user_type=3)
-#             user.students.address = address
-#             user.students.gender = sex
-#             user.students.course_id = class_
-#             user.save()
-#             messages.success(request, "Successfully Added Student")
-#             return HttpResponseRedirect(reverse("add_student"))
-#         except:
-#             messages.error(request, "Failed to Add Staff")
-#             return HttpResponseRedirect(reverse("add_student"))
+def add_staff_save(request):
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        chuc_vu = request.POST.get("chuc_vu")
+        don_vi_id = request.POST.get("don_vi")
+        don_vi_ = Donvi.objects.get(id=don_vi_id)
+        try:
+            user = CustomUser.objects.create_user(
+                username=username,
+                password=password,
+                email=email,
+                last_name=last_name,
+                first_name=first_name,
+                user_type=2,
+            )
+            user.canbonghiepvu.don_vi = don_vi_
+            user.canbonghiepvu.chuc_vu = chuc_vu
+            user.save()
+            messages.success(request, "Successfully Added Staff")
+            return HttpResponseRedirect(reverse("add_staff"))
+        except:
+            messages.error(request, "Failed to Add Staff")
+            return HttpResponseRedirect(reverse("add_staff"))
 
 
-# def add_subject(request):
-#     courses=Class.objects.all()
-#     staffs=CustomUser.objects.filter(user_type=2)
-#     return render(request,"hod_template/add_subject_template.html",{"staffs":staffs,"courses":courses})
-
-# def add_subject_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("<h2>Method Not Allowed</h2>")
-#     else:
-#         subject_name=request.POST.get("subject_name")
-#         course_id=request.POST.get("course")
-#         course=Class.objects.get(id=course_id)
-#         staff_id=request.POST.get("staff")
-#         staff=CustomUser.objects.get(id=staff_id)
-
-#         try:
-#             subject=Subjects(subject_name=subject_name,course_id=course,staff_id=staff)
-#             subject.save()
-#             messages.success(request,"Successfully Added Subject")
-#             return HttpResponseRedirect(reverse("add_subject"))
-#         except:
-#             messages.error(request,"Failed to Add Subject")
-#             return HttpResponseRedirect(reverse("add_subject"))
+def manage_staff(request):
+    staffs = CanBoNghiepVu.objects.all()
+    return render(
+        request, "hod_template/manage_staff_template.html", {"staffs": staffs}
+    )
 
 
-# def manage_staff(request):
-#     staffs=Staffs.objects.all()
-#     return render(request,"hod_template/manage_staff_template.html",{"staffs":staffs})
-
-# def manage_student(request):
-#     students=Students.objects.all()
-#     return render(request,"hod_template/manage_student_template.html",{"students":students})
-
-# def manage_course(request):
-#     courses=Class.objects.all()
-#     return render(request,"hod_template/manage_course_template.html",{"courses":courses})
-
-# def manage_subject(request):
-#     subjects=Subjects.objects.all()
-#     return render(request,"hod_template/manage_subject_template.html",{"subjects":subjects})
-
-# def edit_staff(request,staff_id):
-#     staff=Staffs.objects.get(admin=staff_id)
-#     return render(request,"hod_template/edit_staff_template.html",{"staff":staff,"id":staff_id})
-
-# def edit_staff_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("<h2>Method Not Allowed</h2>")
-#     else:
-#         staff_id=request.POST.get("staff_id")
-#         first_name=request.POST.get("first_name")
-#         last_name=request.POST.get("last_name")
-#         email=request.POST.get("email")
-#         username=request.POST.get("username")
-#         address=request.POST.get("address")
-
-#         try:
-#             user=CustomUser.objects.get(id=staff_id)
-#             user.first_name=first_name
-#             user.last_name=last_name
-#             user.email=email
-#             user.username=username
-#             user.save()
-
-#             staff_model=Staffs.objects.get(admin=staff_id)
-#             staff_model.address=address
-#             staff_model.save()
-#             messages.success(request,"Successfully Edited Staff")
-#             return HttpResponseRedirect(reverse("edit_staff",kwargs={"staff_id":staff_id}))
-#         except:
-#             messages.error(request,"Failed to Edit Staff")
-#             return HttpResponseRedirect(reverse("edit_staff",kwargs={"staff_id":staff_id}))
-
-# def edit_student(request,student_id):
-#     request.session['student_id']=student_id
-#     student=Students.objects.get(admin=student_id)
-#     form=EditStudentForm()
-#     form.fields['email'].initial=student.admin.email
-#     form.fields['first_name'].initial=student.admin.first_name
-#     form.fields['last_name'].initial=student.admin.last_name
-#     form.fields['username'].initial=student.admin.username
-#     form.fields['address'].initial=student.address
-#     form.fields['course'].initial=student.course_id.id
-#     form.fields['sex'].initial=student.gender
-#     form.fields['session_year_id'].initial=student.session_year_id.id
-#     return render(request,"hod_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
-
-# def edit_student_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("<h2>Method Not Allowed</h2>")
-#     else:
-#         student_id=request.session.get("student_id")
-#         if student_id==None:
-#             return HttpResponseRedirect(reverse("manage_student"))
-
-#         form=EditStudentForm(request.POST,request.FILES)
-#         if form.is_valid():
-#             first_name = form.cleaned_data["first_name"]
-#             last_name = form.cleaned_data["last_name"]
-#             username = form.cleaned_data["username"]
-#             email = form.cleaned_data["email"]
-#             address = form.cleaned_data["address"]
-#             session_year_id=form.cleaned_data["session_year_id"]
-#             course_id = form.cleaned_data["course"]
-#             sex = form.cleaned_data["sex"]
-
-#             if request.FILES.get('profile_pic',False):
-#                 profile_pic=request.FILES['profile_pic']
-#                 fs=FileSystemStorage()
-#                 filename=fs.save(profile_pic.name,profile_pic)
-#                 profile_pic_url=fs.url(filename)
-#             else:
-#                 profile_pic_url=None
+def edit_staff(request, staff_id):
+    staff = CanBoNghiepVu.objects.get(admin=staff_id)
+    don_vi_all = Donvi.objects.all()
+    return render(
+        request,
+        "hod_template/edit_staff_template.html",
+        {"staff": staff, "don_vi_all": don_vi_all},
+    )
 
 
-#             try:
-#                 user=CustomUser.objects.get(id=student_id)
-#                 user.first_name=first_name
-#                 user.last_name=last_name
-#                 user.username=username
-#                 user.email=email
-#                 user.save()
+def edit_staff_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        staff_id = request.POST.get("staff_id")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        chuc_vu = request.POST.get("chuc_vu")
+        don_vi_id = request.POST.get("don_vi")
+        don_vi_ = Donvi.objects.get(id=don_vi_id)
+        try:
+            user = CustomUser.objects.get(id=staff_id)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.username = username
+            user.email = email
+            user.password = password
+            user.save()
 
-#                 student=Students.objects.get(admin=student_id)
-#                 student.address=address
-#                 session_year = SessionYearModel.object.get(id=session_year_id)
-#                 student.session_year_id = session_year
-#                 student.gender=sex
-#                 course=Class.objects.get(id=course_id)
-#                 student.course_id=course
-#                 if profile_pic_url!=None:
-#                     student.profile_pic=profile_pic_url
-#                 student.save()
-#                 del request.session['student_id']
-#                 messages.success(request,"Successfully Edited Student")
-#                 return HttpResponseRedirect(reverse("edit_student",kwargs={"student_id":student_id}))
-#             except:
-#                 messages.error(request,"Failed to Edit Student")
-#                 return HttpResponseRedirect(reverse("edit_student",kwargs={"student_id":student_id}))
-#         else:
-#             form=EditStudentForm(request.POST)
-#             student=Students.objects.get(admin=student_id)
-#             return render(request,"hod_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
+            staff_model = CanBoNghiepVu.objects.get(admin=staff_id)
+            staff_model.don_vi = don_vi_
+            staff_model.chuc_vu = chuc_vu
+            staff_model.save()
 
-# def edit_subject(request,subject_id):
-#     subject=Subjects.objects.get(id=subject_id)
-#     courses=Class.objects.all()
-#     staffs=CustomUser.objects.filter(user_type=2)
-#     return render(request,"hod_template/edit_subject_template.html",{"subject":subject,"staffs":staffs,"courses":courses,"id":subject_id})
-
-# def edit_subject_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("<h2>Method Not Allowed</h2>")
-#     else:
-#         subject_id=request.POST.get("subject_id")
-#         subject_name=request.POST.get("subject_name")
-#         staff_id=request.POST.get("staff")
-#         course_id=request.POST.get("course")
-
-#         try:
-#             subject=Subjects.objects.get(id=subject_id)
-#             subject.subject_name=subject_name
-#             staff=CustomUser.objects.get(id=staff_id)
-#             subject.staff_id=staff
-#             course=Class.objects.get(id=course_id)
-#             subject.course_id=course
-#             subject.save()
-
-#             messages.success(request,"Successfully Edited Subject")
-#             return HttpResponseRedirect(reverse("edit_subject",kwargs={"subject_id":subject_id}))
-#         except:
-#             messages.error(request,"Failed to Edit Subject")
-#             return HttpResponseRedirect(reverse("edit_subject",kwargs={"subject_id":subject_id}))
+            messages.success(request, "Successfully update Staff")
+            return HttpResponseRedirect(
+                reverse("edit_staff", kwargs={"staff_id": staff_id})
+            )
+        except:
+            messages.error(request, "Failed to update Staff")
+            return HttpResponseRedirect(
+                reverse("edit_staff", kwargs={"staff_id": staff_id})
+            )
 
 
-# def edit_course(request,course_id):
-#     course=Class.objects.get(id=course_id)
-#     staff_list = Staffs.objects.all()
-#     session_list = SessionYearModel.object.all()
-#     school_year_list = SchoolYearModel.object.all()
-#     return render(request,"hod_template/edit_class_template.html",{"course":course,"id":course_id,"staffs": staff_list, "sessions": session_list, "school_years":school_year_list})
-
-# def edit_course_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("<h2>Method Not Allowed</h2>")
-#     else:
-#         course_id=request.POST.get("course_id")
-#         course_name=request.POST.get("class_name")
-#         staff_id = request.POST.get("staff")
-#         staff_id = Staffs.objects.get(id=staff_id)
-#         session_id = request.POST.get("session")
-#         session_id = SessionYearModel.object.get(id=session_id)
-#         school_year_id = request.POST.get("school_year")
-#         school_year_id = SchoolYearModel.object.get(id=school_year_id)
-#         try:
-#             course=Class.objects.get(id=course_id)
-#             course.course_name=course_name
-#             course.staff_id = staff_id
-#             course.session_year_id = session_id
-#             course.school_year_id = school_year_id
-#             course.save()
-#             messages.success(request,"Successfully Edited Course")
-#             return HttpResponseRedirect(reverse("edit_course",kwargs={"course_id":course_id}))
-#         except:
-#             messages.error(request,"Failed to Edit Course")
-#             return HttpResponseRedirect(reverse("edit_course",kwargs={"course_id":course_id}))
+def Them_donvi(request):
+    return render(request, "hod_template/add_donvi.html")
 
 
-# def manage_session(request):
-#     return render(request,"hod_template/manage_session_template.html")
+def Them_donvi_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_don_vi = request.POST.get("don_vi")
+        dia_chi = request.POST.get("dia_chi")
+        try:
+            donvi = Donvi(ten_don_vi=ten_don_vi, vi_tri=dia_chi)
+            donvi.save()
+            messages.success(request, "Successfully Added don vi")
+            return HttpResponseRedirect(reverse("them_don_vi"))
+        except:
+            messages.error(request, "Failed to Add don vi")
+            return HttpResponseRedirect(reverse("them_don_vi"))
 
-# def manage_school_year(request):
-#     return render(request,"hod_template/manage_school_year_template.html")
+
+def manage_don_vi(request):
+    donvi_all = Donvi.objects.all()
+    return render(
+        request, "hod_template/manage_don_vi.html", {"donvi_all": donvi_all}
+    )
+
+
+def edit_don_vi(request, donvi_id):
+    don_vi = Donvi.objects.get(id=donvi_id)
+    return render(request, "hod_template/edit_donvi.html", {"don_vi": don_vi})
+
+
+def edit_don_vi_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        don_vi_id = request.POST.get("donvi_id")
+        ten_don_vi = request.POST.get("don_vi")
+        dia_chi = request.POST.get("dia_chi")
+        try:
+            donvi = Donvi.objects.get(id=don_vi_id)
+            donvi.ten_don_vi = ten_don_vi
+            donvi.vi_tri = dia_chi
+            donvi.save()
+            messages.success(request, "Successfully Updated don vi")
+            return HttpResponseRedirect(
+                reverse("edit_don_vi", kwargs={"donvi_id": don_vi_id})
+            )
+        except:
+            messages.error(request, "Failed to update don vi")
+            return HttpResponseRedirect(
+                reverse("manage_donvi", kwargs={"donvi_id": don_vi_id})
+            )
 
 
 # def add_session_save(request):
@@ -392,23 +218,26 @@ def admin_home(request):
 #             messages.error(request, "Failed to Add School Year")
 #             return HttpResponseRedirect(reverse("manage_school_year"))
 
-# @csrf_exempt
-# def check_email_exist(request):
-#     email=request.POST.get("email")
-#     user_obj=CustomUser.objects.filter(email=email).exists()
-#     if user_obj:
-#         return HttpResponse(True)
-#     else:
-#         return HttpResponse(False)
 
-# @csrf_exempt
-# def check_username_exist(request):
-#     username=request.POST.get("username")
-#     user_obj=CustomUser.objects.filter(username=username).exists()
-#     if user_obj:
-#         return HttpResponse(True)
-#     else:
-#         return HttpResponse(False)
+@csrf_exempt
+def check_email_exist(request):
+    email = request.POST.get("email")
+    user_obj = CustomUser.objects.filter(email=email).exists()
+    if user_obj:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
+
+@csrf_exempt
+def check_username_exist(request):
+    username = request.POST.get("username")
+    user_obj = CustomUser.objects.filter(username=username).exists()
+    if user_obj:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
 
 # def staff_feedback_message(request):
 #     feedbacks=FeedBackStaffs.objects.all()
@@ -510,9 +339,11 @@ def admin_home(request):
 #         list_data.append(data_small)
 #     return JsonResponse(json.dumps(list_data),content_type="application/json",safe=False)
 
-# def admin_profile(request):
-#     user=CustomUser.objects.get(id=request.user.id)
-#     return render(request,"hod_template/admin_profile.html",{"user":user})
+
+def admin_profile(request):
+    user = CustomUser.objects.get(id=request.user.id)
+    return render(request, "hod_template/admin_profile.html", {"user": user})
+
 
 # def admin_profile_save(request):
 #     if request.method!="POST":
