@@ -103,6 +103,25 @@
             <p>Quan ly loai cay giong</p>
           </a>
         </li>
+        <li class="nav-item">
+          {% url 'add_co_so_san_xuat_cay_giong' as add_co_so_san_xuat_cay_giong %}
+          <a
+            href="{{ add_co_so_san_xuat_cay_giong }}"
+            class="nav-link {% if request.path == add_co_so_san_xuat_cay_giong %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them co so sx cay giong</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_co_so_san_xuat_cay_giong' as manage_co_so_san_xuat_cay_giong %}
+          <a
+            href="{{ manage_co_so_san_xuat_cay_giong }}"
+            class="nav-link {% if request.path == manage_co_so_san_xuat_cay_giong %} active {% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly co so sx cay giong</p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

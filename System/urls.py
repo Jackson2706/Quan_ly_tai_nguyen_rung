@@ -91,6 +91,37 @@ urlpatterns = (
             HodViews.manage_loai_cay_giong,
             name="manage_loai_cay_giong",
         ),
+        path(
+            "edit_loai_cay_giong/<str:id_giong_cay>",
+            HodViews.edit_loai_cay_giong,
+            name="edit_loai_cay_giong",
+        ),
+        path(
+            "edit_loai_cay_giong_save",
+            HodViews.edit_loai_cay_giong_save,
+            name="edit_loai_cay_giong_save",
+        ),
+        path(
+            "add_co_so_san_xuat_cay_giong",
+            HodViews.add_co_so_san_xuat_cay_giong,
+            name="add_co_so_san_xuat_cay_giong",
+        ),
+        path(
+            "add_co_so_san_xuat_cay_giong_save",
+            HodViews.add_co_so_san_xuat_cay_giong_save,
+            name="add_co_so_san_xuat_cay_giong_save",
+        ),
+        path(
+            "manage_co_so_san_xuat_cay_giong",
+            HodViews.manage_co_so_san_xuat_cay_giong,
+            name="manage_co_so_san_xuat_cay_giong",
+        ),
+        path(
+            "edit_co_so_san_xuat_cay_gong/<str:co_so_sx_cay_giong_id>",
+            HodViews.edit_co_so_san_xuat_cay_gong,
+            name="edit_co_so_san_xuat_cay_gong",
+        ),
+        path("edit_co_so_san_xuat_cay_gong_save", HodViews.edit_co_so_san_xuat_cay_gong_save, name="edit_co_so_san_xuat_cay_gong_save"),
         path("admin_profile", HodViews.admin_profile, name="admin_profile"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

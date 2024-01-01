@@ -217,6 +217,114 @@ def manage_loai_cay_giong(request):
     )
 
 
+def edit_loai_cay_giong(request, id_giong_cay):
+    giong_cay = LoaiCayGiong.objects.get(id=id_giong_cay)
+    return render(
+        request,
+        "hod_template/edit_loai_cay_giong.html",
+        {"giong_cay": giong_cay},
+    )
+
+
+def edit_loai_cay_giong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        cay_giong_id = request.POST.get("giong_cay_id")
+        ten_loai_cay_giong = request.POST.get("loai_cay_giong")
+        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        try:
+            loai_cay_giong = LoaiCayGiong.objects.get(id=cay_giong_id)
+            loai_cay_giong.ten_giong = ten_loai_cay_giong
+            loai_cay_giong.Ngay_cap_phep = ngay_cap_phep
+            loai_cay_giong.save()
+            messages.success(request, "Successfully update loai giong cay moi")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_cay_giong", kwargs={"id_giong_cay": cay_giong_id}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update loai giong cay moi")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_cay_giong", kwargs={"id_giong_cay": cay_giong_id}
+                )
+            )
+
+
+def add_co_so_san_xuat_cay_giong(request):
+    return render(request, "hod_template/add_co_so_san_xuat_cay_giong.html")
+
+
+def add_co_so_san_xuat_cay_giong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_co_so = request.POST.get("ten_co_so")
+        dia_chi = request.POST.get("dia_chi")
+        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        try:
+            co_so_sx_cay_giong = CoSoSanXuatCayGiong(
+                ten_co_so=ten_co_so,
+                dia_diem=dia_chi,
+                ngay_cap_phep=ngay_cap_phep,
+            )
+            co_so_sx_cay_giong.save()
+            messages.success(
+                request, "Successfully create co so san xuat giong cay moi"
+            )
+            return HttpResponseRedirect(reverse("add_co_so_san_xuat_cay_giong"))
+        except:
+            messages.error(
+                request, "Failed create co so san xuat giong cay moi"
+            )
+            return HttpResponseRedirect(reverse("add_co_so_san_xuat_cay_giong"))
+
+
+def manage_co_so_san_xuat_cay_giong(request):
+    co_so_san_xuat_cay_giong_all = CoSoSanXuatCayGiong.objects.all()
+    return render(
+        request,
+        "hod_template/manage_cs_sx_cay_giong.html",
+        {"co_so_san_xuat_cay_giong_all": co_so_san_xuat_cay_giong_all},
+    )
+
+
+def edit_co_so_san_xuat_cay_gong(request, co_so_sx_cay_giong_id):
+    co_so_sx_cay_giong = CoSoSanXuatCayGiong.objects.get(
+        id=co_so_sx_cay_giong_id
+    )
+    return render(request, "hod_template/edit_cs_sx_cay_giong.html", {"co_so_sx_cay_giong": co_so_sx_cay_giong})
+
+def edit_co_so_san_xuat_cay_gong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        co_so_id = request.POST.get("co_so_id")
+        ten_co_so = request.POST.get("ten_co_so")
+        dia_chi = request.POST.get("dia_chi")
+        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        try:
+            co_so_sx_cay_giong = CoSoSanXuatCayGiong.objects.get(id=co_so_id)
+            co_so_sx_cay_giong.ten_co_so = ten_co_so
+            co_so_sx_cay_giong.dia_diem = dia_chi
+            co_so_sx_cay_giong.ngay_cap_phep = ngay_cap_phep
+            co_so_sx_cay_giong.save()
+            messages.success(request, "Successfully update co so sx cay giong")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_co_so_san_xuat_cay_gong", kwargs={"co_so_sx_cay_giong_id": co_so_id}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update loai giong cay moi")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_co_so_san_xuat_cay_gong", kwargs={"co_so_sx_cay_giong_id": co_so_id}
+                )
+            )
+        
 @csrf_exempt
 def check_email_exist(request):
     email = request.POST.get("email")
