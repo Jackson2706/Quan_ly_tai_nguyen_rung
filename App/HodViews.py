@@ -186,37 +186,35 @@ def edit_don_vi_save(request):
             )
 
 
-# def add_session_save(request):
-#     if request.method!="POST":
-#         return HttpResponseRedirect(reverse("manage_session"))
-#     else:
-#         session_start_year=request.POST.get("session_start")
-#         session_end_year=request.POST.get("session_end")
+def add_loai_cay_giong(request):
+    return render(request, "hod_template/add_loai_cay_giong.html")
 
-#         try:
-#             sessionyear=SessionYearModel(session_start_year=session_start_year,session_end_year=session_end_year)
-#             sessionyear.save()
-#             messages.success(request, "Successfully Added Session")
-#             return HttpResponseRedirect(reverse("manage_session"))
-#         except:
-#             messages.error(request, "Failed to Add Session")
-#             return HttpResponseRedirect(reverse("manage_session"))
 
-# def add_school_year_save(request):
-#     if request.method!="POST":
-#         return HttpResponseRedirect(reverse("manage_school_year"))
-#     else:
-#         school_start_year=request.POST.get("school_start")
-#         school_end_year=request.POST.get("school_end")
+def add_loai_cay_giong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_loai_cay_giong = request.POST.get("loai_cay_giong")
+        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        try:
+            loai_cay_giong = LoaiCayGiong(
+                ten_giong=ten_loai_cay_giong, Ngay_cap_phep=ngay_cap_phep
+            )
+            loai_cay_giong.save()
+            messages.success(request, "Successfully Create loai giong cay moi")
+            return HttpResponseRedirect(reverse("add_loai_cay_giong"))
+        except:
+            messages.error(request, "Failed Create loai giong cay moi")
+            return HttpResponseRedirect(reverse("add_loai_cay_giong"))
 
-#         try:
-#             schoolyear=SchoolYearModel(school_start_year=school_start_year,school_end_year=school_end_year)
-#             schoolyear.save()
-#             messages.success(request, "Successfully Added School Year")
-#             return HttpResponseRedirect(reverse("manage_school_year"))
-#         except:
-#             messages.error(request, "Failed to Add School Year")
-#             return HttpResponseRedirect(reverse("manage_school_year"))
+
+def manage_loai_cay_giong(request):
+    loai_cay_giong_all = LoaiCayGiong.objects.all()
+    return render(
+        request,
+        "hod_template/manage_loai_cay_giong.html",
+        {"loai_cay_giong_all": loai_cay_giong_all},
+    )
 
 
 @csrf_exempt

@@ -76,6 +76,21 @@ urlpatterns = (
         path(
             "edit_staff_save", HodViews.edit_staff_save, name="edit_staff_save"
         ),
+        path(
+            "add_loai_cay_giong",
+            HodViews.add_loai_cay_giong,
+            name="add_loai_cay_giong",
+        ),
+        path(
+            "add_loai_cay_giong_save",
+            HodViews.add_loai_cay_giong_save,
+            name="add_loai_cay_giong_save",
+        ),
+        path(
+            "manage_loai_cay_giong",
+            HodViews.manage_loai_cay_giong,
+            name="manage_loai_cay_giong",
+        ),
         path("admin_profile", HodViews.admin_profile, name="admin_profile"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

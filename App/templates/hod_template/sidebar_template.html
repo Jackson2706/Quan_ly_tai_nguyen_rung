@@ -83,6 +83,26 @@
             <p>Quan ly Don vi</p>
           </a>
         </li>
+        <li class="nav-item">
+          {% url 'add_loai_cay_giong' as add_loai_cay_giong %}
+          <a
+            href="{{ add_loai_cay_giong }}"
+            class="nav-link {% if request.path == add_loai_cay_giong %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them loai cay giong</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_loai_cay_giong' as manage_loai_cay_giong %}
+          <a
+            href="{{ manage_loai_cay_giong }}"
+            class="nav-link {% if request.path == manage_loai_cay_giong %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly loai cay giong</p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
