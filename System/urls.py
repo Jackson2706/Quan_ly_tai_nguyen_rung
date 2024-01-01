@@ -129,6 +129,23 @@ urlpatterns = (
         path("admin_profile", HodViews.admin_profile, name="admin_profile"),
         # Staff
         path("staff_home", StaffViews.staff_home, name="staff_home"),
+        path("staff_profile", StaffViews.staff_profile, name="staff_profile"),
+        path(
+            "staff_profile_save",
+            StaffViews.staff_profile_save,
+            name="staff_profile_save",
+        ),
+        path("add_cay_giong", StaffViews.add_cay_giong, name="add_cay_giong"),
+        path(
+            "add_cay_giong_save",
+            StaffViews.add_cay_giong_save,
+            name="add_cay_giong_save",
+        ),
+        path(
+            "manage_cay_giong",
+            StaffViews.manage_cay_giong,
+            name="manage_cay_giong",
+        ),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

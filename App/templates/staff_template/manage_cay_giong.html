@@ -1,6 +1,6 @@
 {% extends 'staff_template/base_template.html' %}
 {% block page_title %}
-Staff Notifications
+Quan ly cay giong
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -12,7 +12,7 @@ Staff Notifications
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All Notifications</h3>
+                <h3 class="card-title">Thong tin cay giong</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -29,13 +29,23 @@ Staff Notifications
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>Notifications</th>
+                      <th>ID</th>
+                      <th>Loai cay giong</th>
+                      <th>Co so san xuat</th>
+                      <th>So luong</th>
+                      <th>Thoi gian cap nhat cuoi</th>
+                      <th>Thao tac</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for notification in notifications %}
+                  {% for cay_giong in cay_giong_all %}
                     <tr>
-                      <td>{{ notification.message }}</td>
+                      <td>{{ cay_giong.id}}</td>
+                      <td>{{ cay_giong.loai_cay_giong.ten_giong }}</td>
+                      <td>{{ cay_giong.co_so_san_xuat.ten_co_so }} - {{ cay_giong.co_so_san_xuat.dia_diem }}</td>
+                      <td>{{ cay_giong.so_luong }}</td>
+                      <td>{{ cay_giong.Thoi_gian_cap_nhat}}</td>
+                      <td><a href="edit_loai_cay_giong/{{loai_cay_giong.id}}" class="btn btn-success">Chinh sua</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
