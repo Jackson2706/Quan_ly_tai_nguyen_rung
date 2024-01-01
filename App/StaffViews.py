@@ -14,7 +14,11 @@ from App.models import CustomUser
 
 
 def staff_home(request):
-    pass
+    
+    return render(
+        request,
+        "staff_template/staff_home_template.html",
+    )
     # For Fetch All Student Under Staff
 
 

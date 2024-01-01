@@ -121,8 +121,14 @@ urlpatterns = (
             HodViews.edit_co_so_san_xuat_cay_gong,
             name="edit_co_so_san_xuat_cay_gong",
         ),
-        path("edit_co_so_san_xuat_cay_gong_save", HodViews.edit_co_so_san_xuat_cay_gong_save, name="edit_co_so_san_xuat_cay_gong_save"),
+        path(
+            "edit_co_so_san_xuat_cay_gong_save",
+            HodViews.edit_co_so_san_xuat_cay_gong_save,
+            name="edit_co_so_san_xuat_cay_gong_save",
+        ),
         path("admin_profile", HodViews.admin_profile, name="admin_profile"),
+        # Staff
+        path("staff_home", StaffViews.staff_home, name="staff_home"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
