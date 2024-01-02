@@ -122,6 +122,83 @@
             <p>Quan ly co so sx cay giong</p>
           </a>
         </li>
+        <li class="nav-item">
+          {% url 'add_loai_hinh_san_xuat' as add_loai_hinh_san_xuat %}
+          <a
+            href="{{ add_loai_hinh_san_xuat }}"
+            class="nav-link {% if request.path == add_loai_hinh_san_xuat %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them loai hinh san xuat</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_loai_hinh_san_xuat' as manage_loai_hinh_san_xuat %}
+          <a
+            href="{{ manage_loai_hinh_san_xuat }}"
+            class="nav-link {% if request.path == manage_loai_hinh_san_xuat %} active {% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly loai hinh san xuat</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'add_co_so_luu_tru_dong_vat' as add_co_so_luu_tru_dong_vat %}
+          <a
+            href="{{ add_co_so_luu_tru_dong_vat }}"
+            class="nav-link {% if request.path == add_co_so_luu_tru_dong_vat %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them co so luu tru dong vat</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'add_hinh_thuc_hoat_dong' as add_hinh_thuc_hoat_dong %}
+          <a
+            href="{{ add_hinh_thuc_hoat_dong }}"
+            class="nav-link {% if request.path == add_hinh_thuc_hoat_dong %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them hinh thuc hoat dong</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_hinh_thuc_hoat_dong' as manage_hinh_thuc_hoat_dong %}
+          <a
+            href="{{ manage_hinh_thuc_hoat_dong }}"
+            class="nav-link {% if request.path == manage_hinh_thuc_hoat_dong %} active {% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly hinh thuc hoat dong</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'add_loai_bien_dong' as add_loai_bien_dong %}
+          <a
+            href="{{ add_loai_bien_dong }}"
+            class="nav-link {% if request.path == add_loai_bien_dong %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them loai bien dong</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'add_loai_dong_vat_quy' as add_loai_dong_vat_quy %}
+          <a
+            href="{{ add_loai_dong_vat_quy }}"
+            class="nav-link {% if request.path == add_loai_dong_vat_quy %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Them loai dong vat quy</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_loai_dong_vat_quy' as manage_loai_dong_vat_quy %}
+          <a
+            href="{{ manage_loai_dong_vat_quy }}"
+            class="nav-link {% if request.path == manage_loai_dong_vat_quy %} active {% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly loai dong vat quy</p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

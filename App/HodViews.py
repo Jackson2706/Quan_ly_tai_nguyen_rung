@@ -10,11 +10,15 @@ from django.views.decorators.csrf import csrf_exempt
 
 from App.models import (
     CanBoNghiepVu,
+    CoSoLuuTruDongVat,
     CoSoSanXuatCayGiong,
     CustomUser,
     Donvi,
+    HinhThucHoatDong,
+    LoaiBienDong,
     LoaiCayGiong,
     LoaiDongVatQuy,
+    LoaiHinhSanXuat,
 )
 
 
@@ -325,6 +329,228 @@ def edit_co_so_san_xuat_cay_gong_save(request):
                 )
             )
         
+def add_loai_hinh_san_xuat(request):
+    return render(
+        request,"hod_template/add_loai_hinh_san_xuat.html"
+    )
+def add_loai_hinh_san_xuat_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_loai_hinh_san_xuat = request.POST.get("ten_loai_hinh_san_xuat")
+        try:
+            loai_hinh_san_xuat = LoaiHinhSanXuat(
+                ten_loai_hinh_san_xuat=ten_loai_hinh_san_xuat
+            )
+            loai_hinh_san_xuat.save()
+            messages.success(request, "Successfully Create loai hinh san xuat moi")
+            return HttpResponseRedirect(reverse("add_loai_hinh_san_xuat"))
+        except:
+            messages.error(request, "Failed Create loai hinh san xuat moi")
+            return HttpResponseRedirect(reverse("add_loai_hinh_san_xuat"))
+
+def manage_loai_hinh_san_xuat(request):
+    loai_hinh_san_xuat_all = LoaiHinhSanXuat.objects.all()
+    return render(
+        request,
+        "hod_template/manage_loai_hinh_san_xuat.html",
+        {"loai_hinh_san_xuat_all": loai_hinh_san_xuat_all},
+    )
+
+def edit_loai_hinh_san_xuat(request, id_san_xuat):
+    loai_hinh_san_xuat = LoaiHinhSanXuat.objects.get(id=id_san_xuat)
+    return render(
+        request,
+        "hod_template/edit_loai_hinh_san_xuat.html",
+        {"loai_hinh_san_xuat": loai_hinh_san_xuat},
+    )
+
+def edit_loai_hinh_san_xuat_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        id_san_xuat = request.POST.get("id_san_xuat")
+        ten_loai_hinh_san_xuat = request.POST.get("loai_hinh_san_xuat")
+        try:
+            loai_hinh_san_xuat = LoaiHinhSanXuat.objects.get(id=id_san_xuat)
+            loai_hinh_san_xuat.ten_loai_hinh_san_xuat = ten_loai_hinh_san_xuat
+            loai_hinh_san_xuat.save()
+            messages.success(request, "Successfully update loai giong cay moi")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_hinh_san_xuat", kwargs={"id_san_xuat": id_san_xuat}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update loai giong cay moi")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_hinh_san_xuat", kwargs={"id_san_xuat": id_san_xuat}
+                )
+            )
+
+def add_hinh_thuc_hoat_dong(request):
+    return render(
+        request,"hod_template/add_hinh_thuc_hoat_dong.html"
+    )
+def add_hinh_thuc_hoat_dong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_hinh_thuc_hoat_dong = request.POST.get("hinh_thuc_hoat_dong")
+        try:
+            hinh_thuc_hoat_dong = HinhThucHoatDong(
+                ten_hinh_thuc_hoat_dong=ten_hinh_thuc_hoat_dong
+            )
+            hinh_thuc_hoat_dong.save()
+            messages.success(request, "Successfully Create hinh thuc hoat dong")
+            return HttpResponseRedirect(reverse("add_hinh_thuc_hoat_dong"))
+        except:
+            messages.error(request, "Failed Create hinh thuc hoat dong")
+            return HttpResponseRedirect(reverse("add_hinh_thuc_hoat_dong"))
+
+def manage_hinh_thuc_hoat_dong(request):
+    hinh_thuc_hoat_dong_all = HinhThucHoatDong.objects.all()
+    return render(
+        request,
+        "hod_template/manage_hinh_thuc_hoat_dong.html",
+        {"hinh_thuc_hoat_dong_all": hinh_thuc_hoat_dong_all},
+    )
+
+def edit_hinh_thuc_hoat_dong(request, id_hinh_thuc_hoat_dong):
+    hinh_thuc_hoat_dong = HinhThucHoatDong.objects.get(id=id_hinh_thuc_hoat_dong)
+    return render(
+        request,
+        "hod_template/edit_hinh_thuc_hoat_dong.html",
+        {"hinh_thuc_hoat_dong": hinh_thuc_hoat_dong},
+    )
+
+def edit_hinh_thuc_hoat_dong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        id_hinh_thuc_hoat_dong = request.POST.get("id_hinh_thuc_hoat_dong")
+        ten_hinh_thuc_hoat_dong = request.POST.get("hinh_thuc_hoat_dong")
+        try:
+            hinh_thuc_hoat_dong = HinhThucHoatDong.objects.get(id=id_hinh_thuc_hoat_dong)
+            hinh_thuc_hoat_dong.ten_hinh_thuc_hoat_dong = ten_hinh_thuc_hoat_dong
+            hinh_thuc_hoat_dong.save()
+            messages.success(request, "Successfully update hinh thuc hoat dong")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_hinh_thuc_hoat_dong", kwargs={"id_hinh_thuc_hoat_dong": id_hinh_thuc_hoat_dong}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update hinh thuc hoat dong")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_hinh_thuc_hoat_dong", kwargs={"id_hinh_thuc_hoat_dong": id_hinh_thuc_hoat_dong}
+                )
+            )
+
+# Stop
+def add_loai_dong_vat_quy(request):
+    return render(
+        request,"hod_template/add_loai_dong_vat_quy.html"
+    )
+def add_loai_dong_vat_quy_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_loai_dong_vat_quy = request.POST.get("loai_dong_vat_quy")
+        try:
+            loai_dong_vat_quy = LoaiDongVatQuy(
+                ten_loai_dong_vat_quy=ten_loai_dong_vat_quy
+            )
+            loai_dong_vat_quy.save()
+            messages.success(request, "Successfully Create loai dong vat quy")
+            return HttpResponseRedirect(reverse("add_loai_dong_vat_quy"))
+        except:
+            messages.error(request, "Failed Create loai dong vat quy")
+            return HttpResponseRedirect(reverse("add_loai_dong_vat_quy"))
+
+def manage_loai_dong_vat_quy(request):
+    loai_dong_vat_quy_all = LoaiDongVatQuy.objects.all()
+    return render(
+        request,
+        "hod_template/manage_loai_dong_vat_quy.html",
+        {"loai_dong_vat_quy_all": loai_dong_vat_quy_all},
+    )
+
+def edit_loai_dong_vat_quy(request, id_dong_vat):
+    loai_dong_vat_quy = LoaiDongVatQuy.objects.get(id=id_dong_vat)
+    return render(
+        request,
+        "hod_template/edit_loai_dong_vat_quy.html",
+        {"loai_dong_vat_quy": loai_dong_vat_quy},
+    )
+
+def edit_loai_dong_vat_quy_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        id_dong_vat = request.POST.get("id_dong_vat")
+        ten_loai_dong_vat_quy = request.POST.get("ten_loai_dong_vat_quy")
+        try:
+            loai_dong_vat_quy = LoaiDongVatQuy.objects.get(id=id_dong_vat)
+            loai_dong_vat_quy.ten_loai_dong_vat_quy = ten_loai_dong_vat_quy
+            loai_dong_vat_quy.save()
+            messages.success(request, "Successfully update ten_loai_dong_vat_quy")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_dong_vat_quy", kwargs={"id_dong_vat": id_dong_vat}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update loai_dong_vat_quy")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_dong_vat_quy", kwargs={"id_dong_vat": id_dong_vat}
+                )
+            )
+
+# Stop
+def add_co_so_luu_tru_dong_vat(request):
+    return render(
+        request,"hod_template/add_co_so_luu_tru_dong_vat.html"
+    )
+def add_co_so_luu_tru_dong_vat_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_co_so = request.POST.get("ten_co_so")
+        dia_chi = request.POST.get("ten_dia_chi")
+        try:
+            co_so_luu_tru = CoSoLuuTruDongVat(
+                ten_co_so=ten_co_so,dia_chi = dia_chi
+            )
+            co_so_luu_tru.save()
+            messages.success(request, "Successfully Create co so luu tru dong vat")
+            return HttpResponseRedirect(reverse("add_co_so_luu_tru_dong_vat"))
+        except:
+            messages.error(request, "Failed Create co so luu tru dong vat")
+            return HttpResponseRedirect(reverse("add_co_so_luu_tru_dong_vat"))
+def add_loai_bien_dong(request):
+    return render(
+        request,"hod_template/add_loai_bien_dong.html"
+    )
+def add_loai_bien_dong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        ten_loai_bien_dong = request.POST.get("loai_bien_dong")
+        try:
+            loai_bien_dong = LoaiBienDong(
+                ten_loai_bien_doi = ten_loai_bien_dong
+            )
+            loai_bien_dong.save()
+            messages.success(request, "Successfully Create loai bien dong")
+            return HttpResponseRedirect(reverse("add_loai_bien_dong"))
+        except:
+            messages.error(request, "Failed Create loai bien dong")
+            return HttpResponseRedirect(reverse("add_loai_bien_dong"))
+
 @csrf_exempt
 def check_email_exist(request):
     email = request.POST.get("email")
