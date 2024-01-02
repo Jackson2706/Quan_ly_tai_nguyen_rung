@@ -8,13 +8,137 @@ from django.forms import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from App.models import CustomUser
+from App.models import (
+    CanBoNghiepVu,
+    CayGiong,
+    CoSoSanXuatCayGiong,
+    CustomUser,
+    LoaiCayGiong,
+)
+
+
+def staff_profile(request):
+    user = CustomUser.objects.get(id=request.user.id)
+    staff = CanBoNghiepVu.objects.get(admin=user)
+    return render(
+        request,
+        "staff_template/staff_profile.html",
+        {"user": user, "staff": staff},
+    )
+
+
+def staff_profile_save(request):
+    if request.method != "POST":
+        return HttpResponseRedirect(reverse("staff_profile"))
+    else:
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        password = request.POST.get("password")
+        try:
+            customuser = CustomUser.objects.get(id=request.user.id)
+            customuser.first_name = first_name
+            customuser.last_name = last_name
+            if password != None and password != "":
+                customuser.set_password(password)
+            customuser.save()
+
+            messages.success(request, "Successfully Updated Profile")
+            return HttpResponseRedirect(reverse("staff_profile"))
+        except:
+            messages.error(request, "Failed to Update Profile")
+            return HttpResponseRedirect(reverse("staff_profile"))
+
+
+def add_cay_giong(request):
+    loai_cay_giong_all = LoaiCayGiong.objects.all()
+    cs_sx_cay_giong_all = CoSoSanXuatCayGiong.objects.all()
+    return render(
+        request,
+        "staff_template/add_cay_giong.html",
+        {
+            "loai_cay_giong_all": loai_cay_giong_all,
+            "cs_sx_cay_giong_all": cs_sx_cay_giong_all,
+        },
+    )
+
+
+def add_cay_giong_save(request):
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        loai_cay_giong_id = request.POST.get("loai_cay_giong")
+        cssx_id = request.POST.get("cssx")
+        soluong = int(request.POST.get("soluong"))
+        try:
+            loai_cay_giong = LoaiCayGiong.objects.get(id=loai_cay_giong_id)
+            cssx = CoSoSanXuatCayGiong.objects.get(id=cssx_id)
+            cay_giong = CayGiong(so_luong=soluong)
+            cay_giong.loai_cay_giong = loai_cay_giong
+            cay_giong.co_so_san_xuat = cssx
+            cay_giong.save()
+            messages.success(request, "Successfully create cay giong")
+            return HttpResponseRedirect(reverse("add_cay_giong"))
+        except:
+            messages.error(request, "Failed to create cay giong")
+            return HttpResponseRedirect(reverse("add_cay_giong"))
+
+
+def manage_cay_giong(request):
+    cay_giong_all = CayGiong.objects.all()
+    return render(
+        request,
+        "staff_template/manage_cay_giong.html",
+        {"cay_giong_all": cay_giong_all},
+    )
+
+
+def edit_cay_giong(request, cay_giong_id):
+    cay_giong = CayGiong.objects.get(id=cay_giong_id)
+    loai_cay_giong_all = LoaiCayGiong.objects.all()
+    cs_sx_cay_giong_all = CoSoSanXuatCayGiong.objects.all()
+    return render(
+        request,
+        "staff_template/edit_cay_giong.html",
+        {
+            "cay_giong": cay_giong,
+            "loai_cay_giong_all": loai_cay_giong_all,
+            "cs_sx_cay_giong_all": cs_sx_cay_giong_all,
+        },
+    )
+
+
+def edit_cay_giong_save(request):
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        loai_cay_giong_id = request.POST.get("loai_cay_giong")
+        cssx_id = request.POST.get("cssx")
+        soluong = int(request.POST.get("soluong"))
+        cay_giong_id = request.POST.get("cay_giong_id")
+        try:
+            loai_cay_giong = LoaiCayGiong.objects.get(id=loai_cay_giong_id)
+            cssx = CoSoSanXuatCayGiong.objects.get(id=cssx_id)
+            cay_giong = CayGiong.objects.get(id=cay_giong_id)
+            cay_giong.so_luong = soluong
+            cay_giong.loai_cay_giong = loai_cay_giong
+            cay_giong.co_so_san_xuat = cssx
+            cay_giong.Thoi_gian_cap_nhat = timezone.now()
+            cay_giong.save()
+            messages.success(request, "Successfully update cay giong")
+            return HttpResponseRedirect(
+                reverse("edit_cay_giong", kwargs={"cay_giong_id": cay_giong_id})
+            )
+        except:
+            messages.error(request, "Failed to update cay giong")
+            return HttpResponseRedirect(
+                reverse("edit_cay_giong", kwargs={"cay_giong_id": cay_giong_id})
+            )
 
 
 def staff_home(request):
-    
     return render(
         request,
         "staff_template/staff_home_template.html",
