@@ -8,6 +8,7 @@ from django.forms import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from App.models import (
@@ -87,10 +88,55 @@ def add_cay_giong_save(request):
 
 def manage_cay_giong(request):
     cay_giong_all = CayGiong.objects.all()
-    return render(request, "staff_template/manage_cay_giong.html", {"cay_giong_all": cay_giong_all})
+    return render(
+        request,
+        "staff_template/manage_cay_giong.html",
+        {"cay_giong_all": cay_giong_all},
+    )
+
 
 def edit_cay_giong(request, cay_giong_id):
-    pass
+    cay_giong = CayGiong.objects.get(id=cay_giong_id)
+    loai_cay_giong_all = LoaiCayGiong.objects.all()
+    cs_sx_cay_giong_all = CoSoSanXuatCayGiong.objects.all()
+    return render(
+        request,
+        "staff_template/edit_cay_giong.html",
+        {
+            "cay_giong": cay_giong,
+            "loai_cay_giong_all": loai_cay_giong_all,
+            "cs_sx_cay_giong_all": cs_sx_cay_giong_all,
+        },
+    )
+
+
+def edit_cay_giong_save(request):
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        loai_cay_giong_id = request.POST.get("loai_cay_giong")
+        cssx_id = request.POST.get("cssx")
+        soluong = int(request.POST.get("soluong"))
+        cay_giong_id = request.POST.get("cay_giong_id")
+        try:
+            loai_cay_giong = LoaiCayGiong.objects.get(id=loai_cay_giong_id)
+            cssx = CoSoSanXuatCayGiong.objects.get(id=cssx_id)
+            cay_giong = CayGiong.objects.get(id=cay_giong_id)
+            cay_giong.so_luong = soluong
+            cay_giong.loai_cay_giong = loai_cay_giong
+            cay_giong.co_so_san_xuat = cssx
+            cay_giong.Thoi_gian_cap_nhat = timezone.now()
+            cay_giong.save()
+            messages.success(request, "Successfully update cay giong")
+            return HttpResponseRedirect(
+                reverse("edit_cay_giong", kwargs={"cay_giong_id": cay_giong_id})
+            )
+        except:
+            messages.error(request, "Failed to update cay giong")
+            return HttpResponseRedirect(
+                reverse("edit_cay_giong", kwargs={"cay_giong_id": cay_giong_id})
+            )
+
 
 def staff_home(request):
     return render(

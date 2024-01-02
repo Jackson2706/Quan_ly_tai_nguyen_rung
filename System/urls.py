@@ -146,6 +146,16 @@ urlpatterns = (
             StaffViews.manage_cay_giong,
             name="manage_cay_giong",
         ),
+        path(
+            "edit_cay_giong/<str:cay_giong_id>",
+            StaffViews.edit_cay_giong,
+            name="edit_cay_giong",
+        ),
+        path(
+            "edit_cay_giong_save",
+            StaffViews.edit_cay_giong_save,
+            name="edit_cay_giong_save",
+        ),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
