@@ -252,6 +252,9 @@ urlpatterns = (
             StaffViews.edit_cay_giong_save,
             name="edit_cay_giong_save",
         ),
+        path("add_cssx_che_bien_go", StaffViews.add_cssx_che_bien_go, name="add_cssx_che_bien_go"),
+        path("add_cssx_che_bien_go_save", StaffViews.add_cssx_che_bien_go_save, name="add_cssx_che_bien_go_save"),
+        path("manage_cssx_che_bien_go", StaffViews.manage_cssx_che_bien_go, name="manage_cssx_che_bien_go"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

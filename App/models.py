@@ -87,6 +87,7 @@ class HinhThucHoatDong(models.Model):
 
 class CoSoSanXuatCheBienGo(models.Model):
     id = models.AutoField(primary_key=True)
+    ten_co_so  = models.TextField()
     loai_hinh_san_xuat = models.ForeignKey(
         LoaiHinhSanXuat, on_delete=models.CASCADE
     )

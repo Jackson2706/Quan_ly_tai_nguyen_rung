@@ -47,6 +47,27 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                {% url 'add_cssx_che_bien_go' as add_cssx_che_bien_go %}
+                <a
+                  href="{{ add_cssx_che_bien_go }}"
+                  class="nav-link {% if request.path == add_cssx_che_bien_go %} active {% endif %}"
+                >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Them CSSX che bien go</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                {% url 'manage_cssx_che_bien_go' as manage_cssx_che_bien_go %}
+                <a
+                  href="{{ manage_cssx_che_bien_go }}"
+                  class="nav-link {% if request.path == manage_cssx_che_bien_go %} active {% endif %}"
+                >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Quan ly CSSX che bien go</p>
+                </a>
+              </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
