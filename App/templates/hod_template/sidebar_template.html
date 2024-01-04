@@ -152,6 +152,15 @@
           </a>
         </li>
         <li class="nav-item">
+          {% url 'manage_co_so_luu_tru_dong_vat' as manage_co_so_luu_tru_dong_vat %}
+          <a
+            href="{{ manage_co_so_luu_tru_dong_vat }}"
+            class="nav-link {% if request.path == manage_co_so_luu_tru_dong_vat %} active {% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly co so du lieu dong vat</p>
+          </a>
+        </li>
+        <li class="nav-item">
           {% url 'add_hinh_thuc_hoat_dong' as add_hinh_thuc_hoat_dong %}
           <a
             href="{{ add_hinh_thuc_hoat_dong }}"
@@ -178,6 +187,15 @@
           >
             <i class="nav-icon fas fa-th"></i>
             <p>Them loai bien dong</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_loai_bien_dong' as manage_loai_bien_dong %}
+          <a
+            href="{{ manage_loai_bien_dong }}"
+            class="nav-link {% if request.path == manage_loai_bien_dong %} active {% endif %}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Quan ly loai bien dongt</p>
           </a>
         </li>
         <li class="nav-item">
