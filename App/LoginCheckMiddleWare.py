@@ -31,7 +31,7 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                 ):
                     pass
                 elif (
-                    modulename == "student_management_app.views"
+                    modulename == "App.views"
                     or modulename == "django.views.static"
                 ):
                     pass
