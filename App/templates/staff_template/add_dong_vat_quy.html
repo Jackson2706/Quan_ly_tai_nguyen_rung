@@ -1,6 +1,6 @@
 {% extends 'staff_template/base_template.html' %}
 {% block page_title %}
-Them thng tin dong vat quy
+Them thong tin dong vat quy
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -36,7 +36,7 @@ Them thng tin dong vat quy
                       </div>
                       <div class="form-group">
                         <label>Loai bien dong</label>
-                        <select class="form-control" name="loai_bien_dong">
+                        <select class="form-control" name="loai_bien_dong_id">
                             {% for loai_bien_dong in loai_bien_dong_all %}
                               <option value="{{ loai_bien_dong.id }}">{{ loai_bien_dong.ten_loai_bien_doi }}</option>
                             {% endfor %}
@@ -48,17 +48,6 @@ Them thng tin dong vat quy
                       type="text"
                       class="form-control"
                       name="soluong"
-                      placeholder="Nhap so luong"
-                      id="don_vi"
-                      autocomplete="off"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label>Ngay cap nhat</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      name="ngaycapnhat"
                       placeholder="Nhap so luong"
                       id="don_vi"
                       autocomplete="off"
@@ -82,7 +71,7 @@ Them thng tin dong vat quy
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Them thong tin cay giong</button>
+                  <button type="submit" class="btn btn-primary btn-block">Them thong tin </button>
                 </div>
               </form>
             </div>
