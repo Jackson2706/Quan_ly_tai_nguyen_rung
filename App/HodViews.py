@@ -531,6 +531,51 @@ def add_co_so_luu_tru_dong_vat_save(request):
         except:
             messages.error(request, "Failed Create co so luu tru dong vat")
             return HttpResponseRedirect(reverse("add_co_so_luu_tru_dong_vat"))
+
+def manage_co_so_luu_tru_dong_vat(request):
+    co_so_luu_tru_dong_vat_all = CoSoLuuTruDongVat.objects.all()
+    return render(
+        request,
+        "hod_template/manage_co_so_luu_tru_dong_vat.html",
+        {"co_so_luu_tru_dong_vat_all": co_so_luu_tru_dong_vat_all},
+    )
+
+def edit_co_so_luu_tru_dong_vat(request, id_co_so):
+    co_so_luu_tru_dong_vat = CoSoLuuTruDongVat.objects.get(id=id_co_so)
+    return render(
+        request,
+        "hod_template/edit_co_so_luu_tru_dong_vat.html",
+        {"co_so_luu_tru_dong_vat": co_so_luu_tru_dong_vat},
+    )
+
+def edit_co_so_luu_tru_dong_vat_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        id_co_so = request.POST.get("id_co_so")
+        ten_co_so = request.POST.get("ten_co_so")
+        dia_chi = request.POST.get("dia_chi")
+        try:
+            co_so_luu_tru_dong_vat = CoSoLuuTruDongVat.objects.get(id=id_co_so)
+            co_so_luu_tru_dong_vat.ten_co_so = ten_co_so
+            co_so_luu_tru_dong_vat.dia_chi = dia_chi
+            co_so_luu_tru_dong_vat.save()
+            messages.success(request, "Successfully update co so luu tru dong vat")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_co_so_luu_tru_dong_vat", kwargs={"id_co_so": id_co_so}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update cco so luu tru dong vat")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_co_so_luu_tru_dong_vat", kwargs={"id_co_so": id_co_so}
+                )
+            )
+
+# Stop
+        
 def add_loai_bien_dong(request):
     return render(
         request,"hod_template/add_loai_bien_dong.html"
@@ -550,6 +595,45 @@ def add_loai_bien_dong_save(request):
         except:
             messages.error(request, "Failed Create loai bien dong")
             return HttpResponseRedirect(reverse("add_loai_bien_dong"))
+def manage_loai_bien_dong(request):
+    loai_bien_dong_all = LoaiBienDong.objects.all()
+    return render(
+        request,
+        "hod_template/manage_loai_bien_dong.html",
+        {"loai_bien_dong_all": loai_bien_dong_all},
+    )
+
+def edit_loai_bien_dong(request, id_loai_bien_dong):
+    loai_bien_dong = LoaiBienDong.objects.get(id=id_loai_bien_dong)
+    return render(
+        request,
+        "hod_template/edit_loai_bien_dong.html",
+        {"loai_bien_dong": loai_bien_dong},
+    )
+
+def edit_loai_bien_dong_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        id_loai_bien_dong = request.POST.get("id_loai_bien_dong")
+        ten_loai_bien_doi = request.POST.get("ten_loai_bien_doi")
+        try:
+            loai_bien_dong = LoaiBienDong.objects.get(id=id_loai_bien_dong)
+            loai_bien_dong.ten_loai_bien_doi = ten_loai_bien_doi
+            loai_bien_dong.save()
+            messages.success(request, "Successfully update loai_bien_dong")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_bien_dong", kwargs={"id_loai_bien_dong": id_loai_bien_dong}
+                )
+            )
+        except:
+            messages.error(request, "Failed Update loai_bien_dong")
+            return HttpResponseRedirect(
+                reverse(
+                    "edit_loai_bien_dong", kwargs={"id_loai_bien_dong": id_loai_bien_dong}
+                )
+            )
 
 @csrf_exempt
 def check_email_exist(request):

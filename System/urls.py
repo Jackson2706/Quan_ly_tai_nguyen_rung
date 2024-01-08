@@ -163,6 +163,21 @@ urlpatterns = (
             name="add_co_so_luu_tru_dong_vat_save",
         ),
         path(
+            "manage_co_so_luu_tru_dong_vat",
+            HodViews.manage_co_so_luu_tru_dong_vat,
+            name="manage_co_so_luu_tru_dong_vat",
+        ),
+        path(
+            "edit_co_so_luu_tru_dong_vat/<str:id_co_so>",
+            HodViews.edit_co_so_luu_tru_dong_vat,
+            name="edit_co_so_luu_tru_dong_vat",
+        ),
+        path(
+            "edit_co_so_luu_tru_dong_vat_save",
+            HodViews.edit_co_so_luu_tru_dong_vat_save,
+            name="edit_co_so_luu_tru_dong_vat_save",
+        ),
+        path(
             "add_hinh_thuc_hoat_dong",
             HodViews.add_hinh_thuc_hoat_dong,
             name="add_hinh_thuc_hoat_dong",
@@ -197,6 +212,22 @@ urlpatterns = (
             HodViews.add_loai_bien_dong_save,
             name="add_loai_bien_dong_save",
         ),
+        path(
+            "manage_loai_bien_dong",
+            HodViews.manage_loai_bien_dong,
+            name="manage_loai_bien_dong",
+        ),
+        path(
+            "edit_loai_bien_dong/<str:id_loai_bien_dong>",
+            HodViews.edit_loai_bien_dong,
+            name="edit_loai_bien_dong",
+        ),
+        path(
+            "edit_loai_bien_dong_save",
+            HodViews.edit_loai_bien_dong_save,
+            name="edit_loai_bien_dong_save",
+        ),
+
         path(
             "add_loai_dong_vat_quy",
             HodViews.add_loai_dong_vat_quy,
