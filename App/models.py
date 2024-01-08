@@ -132,7 +132,7 @@ class DongVatQuy(models.Model):
     )
     loai_bien_dong = models.ForeignKey(LoaiBienDong, on_delete=models.CASCADE)
     so_luong = models.IntegerField()
-    ngay_cap_nhat = models.DateTimeField(auto_now_add=True)
+    ngay_cap_nhat = models.DateField(auto_now_add=True)
     objects = models.Manager()
 
 
