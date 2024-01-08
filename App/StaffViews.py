@@ -238,14 +238,12 @@ def add_dong_vat_quy_save(request):
             loai_dong_vat = LoaiDongVatQuy.objects.get(id=loai_dong_vat_id)
             cs_luu_tru = CoSoLuuTruDongVat.objects.get(id=cs_luu_tru_id)
             loai_bien_dong_ = HinhThucHoatDong.objects.get(id=loai_bien_dong_id)
-            soluong = request.POST.get("soluong")
+            soluong = int(request.POST.get("soluong"))
             ngaycapnhat = request.POST.get("ngaycapnhat")
-            dong_vat_quy = DongVatQuy()
+            dong_vat_quy = DongVatQuy(so_luong = soluong, ngay_cap_nhat = ngaycapnhat)
             dong_vat_quy.loai_dong_vat_quy = loai_dong_vat
             dong_vat_quy.co_so_luu_tru = cs_luu_tru
             dong_vat_quy.loai_bien_dong = loai_bien_dong_
-            dong_vat_quy.so_luong = soluong
-            dong_vat_quy.ngay_cap_nhat = ngaycapnhat
             messages.success(request, "Successfully create dong vat quy")
             return HttpResponseRedirect(reverse("add_dong_vat_quy"))
         except:
@@ -257,6 +255,24 @@ def manage_dong_vat_quy(request):
     return render(request, "staff_template/manage_dong_vat_quy.html", {
         "dong_vat_quy_all": dong_vat_quy_all
     })
+
+def edit_dong_vat_quy(request, dong_vat_quy_id):
+    dong_vat_quy = DongVatQuy.objects.get(id = dong_vat_quy_id)
+    loai_dong_vat_quy_all = LoaiDongVatQuy.objects.all()
+    co_so_luu_tru_dv_all = CoSoLuuTruDongVat.objects.all()
+    loai_bien_dong_all = LoaiBienDong.objects.all()
+
+    return render(request, "staff_template/edit_dong_vat_quy.html", {
+        "dong_vat_quy": dong_vat_quy,
+        "loai_dong_vat_quy_all": loai_dong_vat_quy_all,
+        "co_so_luu_tru_dv_all": co_so_luu_tru_dv_all,
+        "loai_bien_dong_all": loai_bien_dong_all
+    })
+
+def edit_dong_vat_quy_save(request):
+    pass
+
+
 def staff_home(request):
     return render(
         request,
