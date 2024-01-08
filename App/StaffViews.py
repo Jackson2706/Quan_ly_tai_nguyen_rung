@@ -1,11 +1,7 @@
 import json
-from datetime import datetime
-from uuid import uuid4
 
 from django.contrib import messages
-from django.core import serializers
-from django.forms import model_to_dict
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
@@ -15,8 +11,11 @@ from App.models import (
     CanBoNghiepVu,
     CayGiong,
     CoSoSanXuatCayGiong,
+    CoSoSanXuatCheBienGo,
     CustomUser,
+    HinhThucHoatDong,
     LoaiCayGiong,
+    LoaiHinhSanXuat,
 )
 
 
@@ -137,7 +136,45 @@ def edit_cay_giong_save(request):
                 reverse("edit_cay_giong", kwargs={"cay_giong_id": cay_giong_id})
             )
 
+def add_cssx_che_bien_go(request):
+    loai_hinh_sx_all = LoaiHinhSanXuat.objects.all()
+    hinh_thuc_hd_all = HinhThucHoatDong.objects.all()
+    return render(request, "staff_template/add_cssx_che_bien_go.html", {
+        "loai_hinh_sx_all": loai_hinh_sx_all,
+        "hinh_thuc_hd_all": hinh_thuc_hd_all
+    })
 
+def add_cssx_che_bien_go_save(request):
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        
+        try:
+            ten_co_so = request.POST.get("ten_co_so")
+            loai_hinh_sx_id = request.POST.get("loai_hinh_sx")
+            hinh_thuc_hoat_dong_id = request.POST.get("hinh_thuc_hoat_dong")
+            hinh_thuc_hoat_dong = HinhThucHoatDong.objects.get(id=hinh_thuc_hoat_dong_id)
+            dia_diem = request.POST.get("diadiem")
+            loai_hinh_sx_ = LoaiHinhSanXuat.objects.get(id=loai_hinh_sx_id)
+            hinh_thuc_hoat_dong = HinhThucHoatDong.objects.get(id=hinh_thuc_hoat_dong_id)
+            ngaythanhlap = request.POST.get("ngaythanhlap")
+            cssx_che_bien_go = CoSoSanXuatCheBienGo()
+            cssx_che_bien_go.ten_co_so = ten_co_so
+            cssx_che_bien_go.loai_hinh_san_xuat = loai_hinh_sx_
+            cssx_che_bien_go.loai_hinh_hoat_dong = hinh_thuc_hoat_dong
+            cssx_che_bien_go.dia_diem = dia_diem
+            cssx_che_bien_go.ngay_thanh_lap = ngaythanhlap
+            messages.success(request, "Successfully create CSSX che bien go")
+            return HttpResponseRedirect(reverse("add_cssx_che_bien_go"))
+        except:
+            messages.error(request, "Failed to create  CSSX che bien go")
+            return HttpResponseRedirect(reverse("add_cssx_che_bien_go"))
+        
+def manage_cssx_che_bien_go(request):
+    cssx_che_bien_go_all = CoSoSanXuatCheBienGo.objects.all()
+    return render(request, "staff_template/manage_cssx_che_bien_go.html", {
+        "cssx_che_bien_go_all": cssx_che_bien_go_all
+    })
 def staff_home(request):
     return render(
         request,
