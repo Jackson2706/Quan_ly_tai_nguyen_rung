@@ -1,3 +1,4 @@
 *.pyc
 App/migrations
 db.sqlite3
+db.sql
