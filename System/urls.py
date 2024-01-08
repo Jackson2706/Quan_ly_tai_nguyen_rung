@@ -291,6 +291,7 @@ urlpatterns = (
         path("add_dong_vat_quy", StaffViews.add_dong_vat_quy, name="add_dong_vat_quy"),
         path("add_dong_vat_quy_save", StaffViews.add_dong_vat_quy_save, name="add_dong_vat_quy_save"),
         path("manage_dong_vat_quy", StaffViews.manage_dong_vat_quy, name="manage_dong_vat_quy"),
+        path("edit_dong_vat_quy/<str:dong_vat_quy_id>",StaffViews.edit_dong_vat_quy, name="edit_dong_vat_quy")
 
         
     ]
