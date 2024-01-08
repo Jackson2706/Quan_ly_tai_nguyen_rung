@@ -236,13 +236,14 @@ def add_dong_vat_quy_save(request):
         try:
             loai_dong_vat_id = request.POST.get("loai_dong_vat")
             cs_luu_tru_id = request.POST.get("cs_luu_tru")
-            loai_bien_dong_id = request.POST.get("loai_bien_dong")
+            loai_bien_dong_id = request.POST.get("loai_bien_dong_id")
+
             loai_dong_vat = LoaiDongVatQuy.objects.get(id=loai_dong_vat_id)
+
             cs_luu_tru = CoSoLuuTruDongVat.objects.get(id=cs_luu_tru_id)
-            loai_bien_dong_ = HinhThucHoatDong.objects.get(id=loai_bien_dong_id)
+            loai_bien_dong_ = LoaiBienDong.objects.get(id=loai_bien_dong_id)
             soluong = int(request.POST.get("soluong"))
-            ngaycapnhat = request.POST.get("ngaycapnhat")
-            dong_vat_quy = DongVatQuy(so_luong = soluong, ngay_cap_nhat = ngaycapnhat)
+            dong_vat_quy = DongVatQuy(so_luong=soluong)
             dong_vat_quy.loai_dong_vat_quy = loai_dong_vat
             dong_vat_quy.co_so_luu_tru = cs_luu_tru
             dong_vat_quy.loai_bien_dong = loai_bien_dong_
@@ -285,13 +286,12 @@ def edit_dong_vat_quy_save(request):
             cs_luu_tru = CoSoLuuTruDongVat.objects.get(id=cs_luu_tru_id)
             loai_bien_dong_ = HinhThucHoatDong.objects.get(id=loai_bien_dong_id)
             soluong = int(request.POST.get("soluong"))
-            ngaycapnhat = request.POST.get("ngaycapnhat")
             dong_vat_quy = DongVatQuy.objects.get(id = dong_vat_quy_id )
             dong_vat_quy.loai_dong_vat_quy = loai_dong_vat
             dong_vat_quy.co_so_luu_tru = cs_luu_tru
             dong_vat_quy.loai_bien_dong = loai_bien_dong_
             dong_vat_quy_id.so_luong = soluong
-            dong_vat_quy.ngay_cap_nhat = ngaycapnhat
+            dong_vat_quy.ngay_cap_nhat = timezone.now()
             dong_vat_quy.save()
             messages.success(request, "Successfully update dong vat quy")
             return HttpResponseRedirect(reverse("edit_dong_vat_quy", kwargs={"dong_vat_quy_id": dong_vat_quy_id}))
