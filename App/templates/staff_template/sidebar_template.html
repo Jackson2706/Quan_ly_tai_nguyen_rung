@@ -68,6 +68,28 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                {% url 'add_dong_vat_quy' as add_dong_vat_quy %}
+                <a
+                  href="{{ add_dong_vat_quy }}"
+                  class="nav-link {% if request.path == add_dong_vat_quy %} active {% endif %}"
+                >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Them dong vat quy</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                {% url 'manage_dong_vat_quy' as manage_dong_vat_quy %}
+                <a
+                  href="{{ manage_dong_vat_quy }}"
+                  class="nav-link {% if request.path == manage_dong_vat_quy %} active {% endif %}"
+                >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Quan ly dong vat quy</p>
+                </a>
+              </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

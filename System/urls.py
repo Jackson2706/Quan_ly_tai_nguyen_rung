@@ -288,6 +288,11 @@ urlpatterns = (
         path("manage_cssx_che_bien_go", StaffViews.manage_cssx_che_bien_go, name="manage_cssx_che_bien_go"),
         path("edit_cssx_che_bien_go/<str:cssx_che_bien_go_id>", StaffViews.edit_cssx_che_bien_go, name="edit_cssx_che_bien_go"),
         path("edit_cssx_che_bien_go_save", StaffViews.edit_cssx_che_bien_go_save, name="edit_cssx_che_bien_go_save"),
+        path("add_dong_vat_quy", StaffViews.add_dong_vat_quy, name="add_dong_vat_quy"),
+        path("add_dong_vat_quy_save", StaffViews.add_dong_vat_quy_save, name="add_dong_vat_quy_save"),
+        path("manage_dong_vat_quy", StaffViews.manage_dong_vat_quy, name="manage_dong_vat_quy"),
+
+        
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

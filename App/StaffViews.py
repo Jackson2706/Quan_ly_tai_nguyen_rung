@@ -16,6 +16,10 @@ from App.models import (
     HinhThucHoatDong,
     LoaiCayGiong,
     LoaiHinhSanXuat,
+    LoaiDongVatQuy,
+    CoSoLuuTruDongVat,
+    LoaiBienDong,
+    DongVatQuy
 )
 
 
@@ -212,6 +216,47 @@ def edit_cssx_che_bien_go_save(request):
         except:
             messages.error(request, "Failed to update  CSSX che bien go")
             return HttpResponseRedirect(reverse("edit_cssx_che_bien_go", kwargs={"cssx_che_bien_go_id": cssx_che_bien_go_id}))
+
+def add_dong_vat_quy(request):
+    loai_dong_vat_quy_all = LoaiDongVatQuy.objects.all()
+    co_so_luu_tru_dv_all = CoSoLuuTruDongVat.objects.all()
+    loai_bien_dong_all = LoaiBienDong.objects.all()
+    return render(request, "staff_template/add_dong_vat_quy.html", {
+        "loai_dong_vat_quy_all": loai_dong_vat_quy_all,
+        "co_so_luu_tru_dv_all": co_so_luu_tru_dv_all,
+        "loai_bien_dong_all": loai_bien_dong_all
+    })
+
+def add_dong_vat_quy_save(request):
+    if request.method != "POST":
+            return HttpResponse("Method Not Allowed")
+    else:
+        try:
+            loai_dong_vat_id = request.POST.get("loai_dong_vat")
+            cs_luu_tru_id = request.POST.get("cs_luu_tru")
+            loai_bien_dong_id = request.POST.get("loai_bien_dong")
+            loai_dong_vat = LoaiDongVatQuy.objects.get(id=loai_dong_vat_id)
+            cs_luu_tru = CoSoLuuTruDongVat.objects.get(id=cs_luu_tru_id)
+            loai_bien_dong_ = HinhThucHoatDong.objects.get(id=loai_bien_dong_id)
+            soluong = request.POST.get("soluong")
+            ngaycapnhat = request.POST.get("ngaycapnhat")
+            dong_vat_quy = DongVatQuy()
+            dong_vat_quy.loai_dong_vat_quy = loai_dong_vat
+            dong_vat_quy.co_so_luu_tru = cs_luu_tru
+            dong_vat_quy.loai_bien_dong = loai_bien_dong_
+            dong_vat_quy.so_luong = soluong
+            dong_vat_quy.ngay_cap_nhat = ngaycapnhat
+            messages.success(request, "Successfully create dong vat quy")
+            return HttpResponseRedirect(reverse("add_dong_vat_quy"))
+        except:
+            messages.error(request, "Failed to create  dong vat quy")
+            return HttpResponseRedirect(reverse("add_dong_vat_quy"))
+
+def manage_dong_vat_quy(request):
+    dong_vat_quy_all = DongVatQuy.objects.all()
+    return render(request, "staff_template/manage_dong_vat_quy.html", {
+        "dong_vat_quy_all": dong_vat_quy_all
+    })
 def staff_home(request):
     return render(
         request,
