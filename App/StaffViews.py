@@ -168,6 +168,7 @@ def add_cssx_che_bien_go_save(request):
             cssx_che_bien_go.loai_hinh_hoat_dong = hinh_thuc_hoat_dong
             cssx_che_bien_go.dia_diem = dia_diem
             cssx_che_bien_go.ngay_thanh_lap = ngaythanhlap
+            cssx_che_bien_go.save()
             messages.success(request, "Successfully create CSSX che bien go")
             return HttpResponseRedirect(reverse("add_cssx_che_bien_go"))
         except:
@@ -211,6 +212,7 @@ def edit_cssx_che_bien_go_save(request):
             cssx_che_bien_go.loai_hinh_hoat_dong = hinh_thuc_hoat_dong
             cssx_che_bien_go.dia_diem = dia_diem
             cssx_che_bien_go.ngay_thanh_lap = ngaythanhlap
+            cssx_che_bien_go.save()
             messages.success(request, "Successfully update CSSX che bien go")
             return HttpResponseRedirect(reverse("edit_cssx_che_bien_go", kwargs={"cssx_che_bien_go_id": cssx_che_bien_go_id}))
         except:
@@ -244,6 +246,7 @@ def add_dong_vat_quy_save(request):
             dong_vat_quy.loai_dong_vat_quy = loai_dong_vat
             dong_vat_quy.co_so_luu_tru = cs_luu_tru
             dong_vat_quy.loai_bien_dong = loai_bien_dong_
+            dong_vat_quy.save()
             messages.success(request, "Successfully create dong vat quy")
             return HttpResponseRedirect(reverse("add_dong_vat_quy"))
         except:
@@ -289,6 +292,7 @@ def edit_dong_vat_quy_save(request):
             dong_vat_quy.loai_bien_dong = loai_bien_dong_
             dong_vat_quy_id.so_luong = soluong
             dong_vat_quy.ngay_cap_nhat = ngaycapnhat
+            dong_vat_quy.save()
             messages.success(request, "Successfully update dong vat quy")
             return HttpResponseRedirect(reverse("edit_dong_vat_quy", kwargs={"dong_vat_quy_id": dong_vat_quy_id}))
         except:
