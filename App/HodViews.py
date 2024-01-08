@@ -53,15 +53,16 @@ def add_staff_save(request):
     if request.method != "POST":
         return HttpResponse("Method Not Allowed")
     else:
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        chuc_vu = request.POST.get("chuc_vu")
-        don_vi_id = request.POST.get("don_vi")
-        don_vi_ = Donvi.objects.get(id=don_vi_id)
+        
         try:
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+            chuc_vu = request.POST.get("chuc_vu")
+            don_vi_id = request.POST.get("don_vi")
+            don_vi_ = Donvi.objects.get(id=don_vi_id)
             user = CustomUser.objects.create_user(
                 username=username,
                 password=password,
@@ -101,16 +102,17 @@ def edit_staff_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        staff_id = request.POST.get("staff_id")
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        chuc_vu = request.POST.get("chuc_vu")
-        don_vi_id = request.POST.get("don_vi")
-        don_vi_ = Donvi.objects.get(id=don_vi_id)
+        
         try:
+            staff_id = request.POST.get("staff_id")
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+            chuc_vu = request.POST.get("chuc_vu")
+            don_vi_id = request.POST.get("don_vi")
+            don_vi_ = Donvi.objects.get(id=don_vi_id)
             user = CustomUser.objects.get(id=staff_id)
             user.first_name = first_name
             user.last_name = last_name
@@ -171,10 +173,11 @@ def edit_don_vi_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        don_vi_id = request.POST.get("donvi_id")
-        ten_don_vi = request.POST.get("don_vi")
-        dia_chi = request.POST.get("dia_chi")
+        
         try:
+            don_vi_id = request.POST.get("donvi_id")
+            ten_don_vi = request.POST.get("don_vi")
+            dia_chi = request.POST.get("dia_chi")
             donvi = Donvi.objects.get(id=don_vi_id)
             donvi.ten_don_vi = ten_don_vi
             donvi.vi_tri = dia_chi
@@ -198,9 +201,10 @@ def add_loai_cay_giong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_loai_cay_giong = request.POST.get("loai_cay_giong")
-        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        
         try:
+            ten_loai_cay_giong = request.POST.get("loai_cay_giong")
+            ngay_cap_phep = request.POST.get("ngay_cap_phep")
             loai_cay_giong = LoaiCayGiong(
                 ten_giong=ten_loai_cay_giong, Ngay_cap_phep=ngay_cap_phep
             )
@@ -234,10 +238,11 @@ def edit_loai_cay_giong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        cay_giong_id = request.POST.get("giong_cay_id")
-        ten_loai_cay_giong = request.POST.get("loai_cay_giong")
-        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        
         try:
+            cay_giong_id = request.POST.get("giong_cay_id")
+            ten_loai_cay_giong = request.POST.get("loai_cay_giong")
+            ngay_cap_phep = request.POST.get("ngay_cap_phep")
             loai_cay_giong = LoaiCayGiong.objects.get(id=cay_giong_id)
             loai_cay_giong.ten_giong = ten_loai_cay_giong
             loai_cay_giong.Ngay_cap_phep = ngay_cap_phep
@@ -265,10 +270,11 @@ def add_co_so_san_xuat_cay_giong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_co_so = request.POST.get("ten_co_so")
-        dia_chi = request.POST.get("dia_chi")
-        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        
         try:
+            ten_co_so = request.POST.get("ten_co_so")
+            dia_chi = request.POST.get("dia_chi")
+            ngay_cap_phep = request.POST.get("ngay_cap_phep")
             co_so_sx_cay_giong = CoSoSanXuatCayGiong(
                 ten_co_so=ten_co_so,
                 dia_diem=dia_chi,
@@ -305,11 +311,12 @@ def edit_co_so_san_xuat_cay_gong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        co_so_id = request.POST.get("co_so_id")
-        ten_co_so = request.POST.get("ten_co_so")
-        dia_chi = request.POST.get("dia_chi")
-        ngay_cap_phep = request.POST.get("ngay_cap_phep")
+        
         try:
+            co_so_id = request.POST.get("co_so_id")
+            ten_co_so = request.POST.get("ten_co_so")
+            dia_chi = request.POST.get("dia_chi")
+            ngay_cap_phep = request.POST.get("ngay_cap_phep")
             co_so_sx_cay_giong = CoSoSanXuatCayGiong.objects.get(id=co_so_id)
             co_so_sx_cay_giong.ten_co_so = ten_co_so
             co_so_sx_cay_giong.dia_diem = dia_chi
@@ -337,8 +344,8 @@ def add_loai_hinh_san_xuat_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_loai_hinh_san_xuat = request.POST.get("ten_loai_hinh_san_xuat")
         try:
+            ten_loai_hinh_san_xuat = request.POST.get("ten_loai_hinh_san_xuat")
             loai_hinh_san_xuat = LoaiHinhSanXuat(
                 ten_loai_hinh_san_xuat=ten_loai_hinh_san_xuat
             )
@@ -369,9 +376,10 @@ def edit_loai_hinh_san_xuat_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        id_san_xuat = request.POST.get("id_san_xuat")
-        ten_loai_hinh_san_xuat = request.POST.get("loai_hinh_san_xuat")
+        
         try:
+            id_san_xuat = request.POST.get("id_san_xuat")
+            ten_loai_hinh_san_xuat = request.POST.get("loai_hinh_san_xuat")
             loai_hinh_san_xuat = LoaiHinhSanXuat.objects.get(id=id_san_xuat)
             loai_hinh_san_xuat.ten_loai_hinh_san_xuat = ten_loai_hinh_san_xuat
             loai_hinh_san_xuat.save()
@@ -397,8 +405,9 @@ def add_hinh_thuc_hoat_dong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_hinh_thuc_hoat_dong = request.POST.get("hinh_thuc_hoat_dong")
+        
         try:
+            ten_hinh_thuc_hoat_dong = request.POST.get("hinh_thuc_hoat_dong")
             hinh_thuc_hoat_dong = HinhThucHoatDong(
                 ten_hinh_thuc_hoat_dong=ten_hinh_thuc_hoat_dong
             )
@@ -429,9 +438,10 @@ def edit_hinh_thuc_hoat_dong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        id_hinh_thuc_hoat_dong = request.POST.get("id_hinh_thuc_hoat_dong")
-        ten_hinh_thuc_hoat_dong = request.POST.get("hinh_thuc_hoat_dong")
+        
         try:
+            id_hinh_thuc_hoat_dong = request.POST.get("id_hinh_thuc_hoat_dong")
+            ten_hinh_thuc_hoat_dong = request.POST.get("hinh_thuc_hoat_dong")
             hinh_thuc_hoat_dong = HinhThucHoatDong.objects.get(id=id_hinh_thuc_hoat_dong)
             hinh_thuc_hoat_dong.ten_hinh_thuc_hoat_dong = ten_hinh_thuc_hoat_dong
             hinh_thuc_hoat_dong.save()
@@ -458,8 +468,9 @@ def add_loai_dong_vat_quy_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_loai_dong_vat_quy = request.POST.get("loai_dong_vat_quy")
+        
         try:
+            ten_loai_dong_vat_quy = request.POST.get("loai_dong_vat_quy")
             loai_dong_vat_quy = LoaiDongVatQuy(
                 ten_loai_dong_vat_quy=ten_loai_dong_vat_quy
             )
@@ -490,9 +501,10 @@ def edit_loai_dong_vat_quy_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        id_dong_vat = request.POST.get("id_dong_vat")
-        ten_loai_dong_vat_quy = request.POST.get("ten_loai_dong_vat_quy")
+        
         try:
+            id_dong_vat = request.POST.get("id_dong_vat")
+            ten_loai_dong_vat_quy = request.POST.get("ten_loai_dong_vat_quy")
             loai_dong_vat_quy = LoaiDongVatQuy.objects.get(id=id_dong_vat)
             loai_dong_vat_quy.ten_loai_dong_vat_quy = ten_loai_dong_vat_quy
             loai_dong_vat_quy.save()
@@ -519,9 +531,10 @@ def add_co_so_luu_tru_dong_vat_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_co_so = request.POST.get("ten_co_so")
-        dia_chi = request.POST.get("ten_dia_chi")
+        
         try:
+            ten_co_so = request.POST.get("ten_co_so")
+            dia_chi = request.POST.get("ten_dia_chi")
             co_so_luu_tru = CoSoLuuTruDongVat(
                 ten_co_so=ten_co_so,dia_chi = dia_chi
             )
@@ -552,10 +565,11 @@ def edit_co_so_luu_tru_dong_vat_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        id_co_so = request.POST.get("id_co_so")
-        ten_co_so = request.POST.get("ten_co_so")
-        dia_chi = request.POST.get("dia_chi")
+        
         try:
+            id_co_so = request.POST.get("id_co_so")
+            ten_co_so = request.POST.get("ten_co_so")
+            dia_chi = request.POST.get("dia_chi")
             co_so_luu_tru_dong_vat = CoSoLuuTruDongVat.objects.get(id=id_co_so)
             co_so_luu_tru_dong_vat.ten_co_so = ten_co_so
             co_so_luu_tru_dong_vat.dia_chi = dia_chi
@@ -584,8 +598,9 @@ def add_loai_bien_dong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        ten_loai_bien_dong = request.POST.get("loai_bien_dong")
+        
         try:
+            ten_loai_bien_dong = request.POST.get("loai_bien_dong")
             loai_bien_dong = LoaiBienDong(
                 ten_loai_bien_doi = ten_loai_bien_dong
             )
@@ -615,9 +630,10 @@ def edit_loai_bien_dong_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        id_loai_bien_dong = request.POST.get("id_loai_bien_dong")
-        ten_loai_bien_doi = request.POST.get("ten_loai_bien_doi")
+        
         try:
+            id_loai_bien_dong = request.POST.get("id_loai_bien_dong")
+            ten_loai_bien_doi = request.POST.get("ten_loai_bien_doi")
             loai_bien_dong = LoaiBienDong.objects.get(id=id_loai_bien_dong)
             loai_bien_dong.ten_loai_bien_doi = ten_loai_bien_doi
             loai_bien_dong.save()
