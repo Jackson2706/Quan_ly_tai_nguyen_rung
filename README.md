@@ -2,8 +2,8 @@
 1. Installation Steps :
 - Clone this repository, you should use a virtual environment to store your Django project’s
 ```shell
-$ git clone https://github.com/Jackson2706/Primary_School_Management.git
-$ cd Primary_School_Management
+$ git clone https://github.com/Jackson2706/Quan_ly_tai_nguyen_rung.git
+$ cd Quan_ly_tai_nguyen_rung
 ```
 - Install the Django code with Pip:
 ```shell
