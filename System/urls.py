@@ -1,4 +1,4 @@
-"""student_management_system URL Configuration
+""" URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -291,7 +291,8 @@ urlpatterns = (
         path("add_dong_vat_quy", StaffViews.add_dong_vat_quy, name="add_dong_vat_quy"),
         path("add_dong_vat_quy_save", StaffViews.add_dong_vat_quy_save, name="add_dong_vat_quy_save"),
         path("manage_dong_vat_quy", StaffViews.manage_dong_vat_quy, name="manage_dong_vat_quy"),
-        path("edit_dong_vat_quy/<str:dong_vat_quy_id>",StaffViews.edit_dong_vat_quy, name="edit_dong_vat_quy")
+        path("edit_dong_vat_quy/<str:dong_vat_quy_id>",StaffViews.edit_dong_vat_quy, name="edit_dong_vat_quy"),
+        path("edit_dong_vat_quy_save", StaffViews.edit_dong_vat_quy_save, name="edit_dong_vat_quy_save"),
 
         
     ]

@@ -15,7 +15,7 @@ Sua co so san xuat che bien go
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/edit_cssx_che_bien_go_save" method="post">
+              <form role="form" action="/add_dong_vat_quy_save" method="post">
                 {% csrf_token %}
                 <div class="card-body">
                     <div class="form-group">
@@ -42,7 +42,7 @@ Sua co so san xuat che bien go
                         <label>Hinh thuc hoat dong</label>
                         <select class="form-control" name="hinh_thuc_hoat_dong">
                             {% for hinh_thuc_hd in hinh_thuc_hd_all %}
-                              <option value="{{ hinh_thuc_hd.id }}" {% if hinh_thuc_hd.id == cssx_che_bien_go.loai_hinh_hoat_dong.id%} selected {%endif}>{{ hinh_thuc_hd.ten_hinh_thuc_hoat_dong }} </option>
+                              <option value="{{ hinh_thuc_hd.id }}" {% if hinh_thuc_hd.id == cssx_che_bien_go.loai_hinh_hoat_dong.id%} selected {%endif%}>{{ hinh_thuc_hd.ten_hinh_thuc_hoat_dong }} </option>
                             {% endfor %}
                         </select>
                       </div>
