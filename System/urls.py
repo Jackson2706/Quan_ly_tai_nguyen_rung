@@ -254,6 +254,7 @@ urlpatterns = (
             name="edit_loai_dong_vat_quy_save",
         ),
         path("admin_profile", HodViews.admin_profile, name="admin_profile"),
+        path("admin_profile_save", HodViews.admin_profile_save, name="admin_profile_save"),
         # Staff
         path("staff_home", StaffViews.staff_home, name="staff_home"),
         path("staff_profile", StaffViews.staff_profile, name="staff_profile"),
